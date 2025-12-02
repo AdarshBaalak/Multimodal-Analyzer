@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pillow
+transformers
+torch
+numpy
+python-multipart
+huggingface-hub
+starlette
+requests
+tqdm
+scikit-learn
+opencv-python-headless
+easyocr
+python-dotenv
