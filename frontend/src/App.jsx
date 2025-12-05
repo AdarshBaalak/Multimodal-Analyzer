@@ -10,37 +10,38 @@ export default function App() {
   const resultRef = useRef(null);
 
   const analyze = async () => {
-    if (!text || !image) {
-      alert("Please enter text & upload an image!");
-      return;
-    }
+  if (!text || !image) {
+    alert("Please enter text & upload an image!");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    const formData = new FormData();
-    formData.append("text", text);
-    formData.append("image", image);
+  const formData = new FormData();
+  formData.append("text", text);
+  formData.append("image", image);
 
-    try {
-      const res = await axios.post(
-        "https://AdarshBaalak-Multimodal-Analyzer.hf.space/proxy/7860/analyze",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+  try {
+    const res = await axios.post(
+      "https://adarshbaalak-multimodal-analyzer.hf.space/proxy/7860/analyze",
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } }
+    );
 
-      setResult(res.data);
+    setResult(res.data);
 
-      setTimeout(() => {
-        resultRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, 300);
+    setTimeout(() => {
+      resultRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 300);
 
-    } catch (error) {
-      console.error(error);
-      alert("Backend error");
-    }
+  } catch (error) {
+    console.error(error);
+    alert("Backend error");
+  }
 
-    setLoading(false);
-  };
+  setLoading(false);
+};
+
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center bg-black p-6 overflow-auto">
