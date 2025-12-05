@@ -22,10 +22,14 @@ export default function App() {
     formData.append("image", image);
 
     try {
-      const res = await axios.post("http://localhost:8000/analyze", formData);
+      const res = await axios.post(
+        "https://AdarshBaalak-Multimodal-Analyzer.hf.space/proxy/7860/analyze",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
       setResult(res.data);
 
-      // Auto-scroll to results
       setTimeout(() => {
         resultRef.current?.scrollIntoView({ behavior: "smooth" });
       }, 300);
@@ -43,12 +47,10 @@ export default function App() {
 
       <div className="w-full max-w-3xl bg-[#1a1a1a] text-white rounded-xl shadow-lg p-10 border border-[#292929]">
 
-        {/* TITLE */}
         <h1 className="text-3xl font-bold text-center mb-8">
           <span className="text-orange-500">Multimodal</span> Analyzer
         </h1>
 
-        {/* TEXT INPUT */}
         <label className="block text-sm mb-2 text-gray-300">Enter Text:</label>
         <textarea
           className="w-full p-4 mb-6 bg-[#111] text-white border border-[#333] rounded-lg focus:outline-none focus:border-orange-500"
@@ -58,7 +60,6 @@ export default function App() {
           onChange={(e) => setText(e.target.value)}
         ></textarea>
 
-        {/* IMAGE UPLOAD */}
         <label className="block text-sm mb-2 text-gray-300">Upload Image:</label>
         <input
           type="file"
@@ -75,7 +76,6 @@ export default function App() {
           />
         )}
 
-        {/* BUTTON */}
         <button
           onClick={analyze}
           className="w-full mt-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-all"
@@ -83,7 +83,6 @@ export default function App() {
           {loading ? "Analyzing..." : "Analyze"}
         </button>
 
-        {/* RESULTS */}
         {result && (
           <div
             ref={resultRef}
